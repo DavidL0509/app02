@@ -9,6 +9,7 @@ import "ol/ol.css";
 import { KommuneLayerCheckbox } from "../kommune/kommuneLayerCheckbox";
 import { MapContext } from "../map/mapContext";
 import { Layer } from "ol/layer";
+import { KommuneAside } from "../kommune/kommuneAside";
 
 useGeographic();
 
@@ -36,7 +37,7 @@ export function Application() {
   const mapRef = useRef() as MutableRefObject<HTMLDivElement>;
   useEffect(() => map.setTarget(mapRef.current), []);
   return (
-    <MapContext.Provider value={{ setLayers }}>
+    <MapContext.Provider value={{ layers, setLayers }}>
       <header>
         <h1>Kommune kart</h1>
       </header>
@@ -46,7 +47,10 @@ export function Application() {
         </a>
         <KommuneLayerCheckbox />
       </nav>
-      <div ref={mapRef}></div>
+      <main>
+        <div ref={mapRef}></div>
+        <KommuneAside />
+      </main>
     </MapContext.Provider>
   );
 }
